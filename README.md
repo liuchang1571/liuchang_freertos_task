@@ -21,4 +21,10 @@
 3. 如发现存在绕过AGENTS.md使用AI的行为，此次作业为0分并打回重做，若11.15前未通过这次作业，降一档录取（正式——梯队，梯队——取消入队资格）
 
 ## 在这里编写你的阅读笔记
-（阅读笔记不要求字数，但是需要自己写，AI生成的一律打回）
+can发送：（can_device_transmit:参数包含用哪个can，发送帧的id，数据的长度，还有数据缓冲区的指针）can_send_msg实际上没有立刻发送，只是发送进入队列
+  然后是到can的发送任务void can1(还有2但是是一样的）_sending_service先从队列取出待发送的任务然后拿信号量取祯填帧头然后放进mailbox
+  然后发送完成中断回调还回信号量
+can接收：先是分配索引，（index可以计算设备属于哪个过滤器组，有几个槽位）然后接受中断回调HAL_CAN_RxFifo0MsgPendingCallback是从fifo取祯，如果是can1就是0can2就是1然后读索引并找
+  到对应设备memcpy
+DJI_motor_service:
+  每一毫秒执行一次，用到osdelayuntil,相较与osdelay精度更高，用for循环扫视是否有enable的can_tx_list并把内容赋给msg.member 然后放进队列。
