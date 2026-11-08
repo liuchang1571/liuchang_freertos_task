@@ -22,8 +22,6 @@
 #include "stm32f4xx_it.h"
 
 #include <string.h>
-
-#include "cmsis_os2.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 extern uint8_t flag;

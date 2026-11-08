@@ -7,8 +7,8 @@
 extern CAN_HandleTypeDef hcan1;
 
 
-void MotorControlTask(void *argument) {
-    DJI_motor *m=new DJI_motor(&hcan1,NULL,1,DJI_M3508,0);
+extern "C" void MotorTask05(void *argument) {
+    DJI_motor *m=new DJI_motor(&hcan1,NULL,5,DJI_M3508,0);
     uint32_t tick=osKernelGetTickCount();
     float t=0;
     for (;;) {
@@ -20,6 +20,3 @@ void MotorControlTask(void *argument) {
     }
 }
 
-extern "C" void MotorTaskInit(void) {
-    osThreadNew(MotorControlTask,NULL,NULL);
-}

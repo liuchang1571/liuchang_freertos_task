@@ -34,9 +34,9 @@ enable_language(C ASM)
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME}
         Task/Task_motor.cpp
-        Task/TUOLUOYI.cpp
+        Task/Task_ins.cpp
         Task/Task_rc.cpp
-        Task/GONGLV..cpp
+        Task/Task_can.cpp
 )
 
 # Add STM32CubeMX generated sources

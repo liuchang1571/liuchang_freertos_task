@@ -5,7 +5,7 @@
 extern "C" {
 #include "ins_task.h"
 }
-void TUOLUOYITask(void *argument) {
+extern "C" void InsTask07(void *argument) {
 
     uint32_t tick=osKernelGetTickCount();
     float t=0;
@@ -14,7 +14,4 @@ void TUOLUOYITask(void *argument) {
         tick=tick+2;
         osDelayUntil(tick);
     }
-}
-extern "C" void TUOLUOYITaskInit(void) {
-    osThreadNew(TUOLUOYITask,NULL,NULL);
 }

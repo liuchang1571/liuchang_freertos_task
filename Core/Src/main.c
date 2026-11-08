@@ -18,9 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
-#include "BMI088driver.h"
-#include "bsp_dwt.h"
 #include "cmsis_os.h"
 #include "can.h"
 #include "dma.h"
@@ -28,6 +25,8 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include"BMI088driver.h"
+#include "bsp_dwt.h"
 #include "ins_task.h"
 
 /* Private includes ----------------------------------------------------------*/

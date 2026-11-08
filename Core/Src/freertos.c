@@ -25,10 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-extern void MotorTaskInit(void);
-extern void TUOLUOYITaskInit(void);
-extern void RcTaskInit(void);
-extern void caipanTaskInit(void);
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -83,6 +80,34 @@ const osThreadAttr_t LED_Task_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for MotorTask */
+osThreadId_t MotorTaskHandle;
+const osThreadAttr_t MotorTask_attributes = {
+  .name = "MotorTask",
+  .stack_size = 1024 * 4,
+  .priority = (osPriority_t) osPriorityHigh,
+};
+/* Definitions for RcTask */
+osThreadId_t RcTaskHandle;
+const osThreadAttr_t RcTask_attributes = {
+  .name = "RcTask",
+  .stack_size = 256 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for InsTask */
+osThreadId_t InsTaskHandle;
+const osThreadAttr_t InsTask_attributes = {
+  .name = "InsTask",
+  .stack_size = 256 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for CanTask */
+osThreadId_t CanTaskHandle;
+const osThreadAttr_t CanTask_attributes = {
+  .name = "CanTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* Definitions for can1_send_fifo */
 osMessageQueueId_t can1_send_fifoHandle;
 const osMessageQueueAttr_t can1_send_fifo_attributes = {
@@ -113,6 +138,10 @@ void can1_sending_service(void *argument);
 void can2_sending_service(void *argument);
 void DJI_motor_service(void *argument);
 void StartTask04(void *argument);
+void MotorTask05(void *argument);
+void RcTask06(void *argument);
+void InsTask07(void *argument);
+void CanTask08(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -169,12 +198,21 @@ void MX_FREERTOS_Init(void) {
   /* creation of LED_Task */
   LED_TaskHandle = osThreadNew(StartTask04, NULL, &LED_Task_attributes);
 
+  /* creation of MotorTask */
+  MotorTaskHandle = osThreadNew(MotorTask05, NULL, &MotorTask_attributes);
+
+  /* creation of RcTask */
+  RcTaskHandle = osThreadNew(RcTask06, NULL, &RcTask_attributes);
+
+  /* creation of InsTask */
+  InsTaskHandle = osThreadNew(InsTask07, NULL, &InsTask_attributes);
+
+  /* creation of CanTask */
+  CanTaskHandle = osThreadNew(CanTask08, NULL, &CanTask_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-  MotorTaskInit();
-  TUOLUOYITaskInit();
-  RcTaskInit();
-  caipanTaskInit();
+
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -266,6 +304,78 @@ __weak void StartTask04(void *argument)
    osDelay(200);
   }
   /* USER CODE END StartTask04 */
+}
+
+/* USER CODE BEGIN Header_MotorTask05 */
+/**
+* @brief Function implementing the MotorTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_MotorTask05 */
+__weak void MotorTask05(void *argument)
+{
+  /* USER CODE BEGIN MotorTask05 */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END MotorTask05 */
+}
+
+/* USER CODE BEGIN Header_RcTask06 */
+/**
+* @brief Function implementing the RcTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_RcTask06 */
+__weak void RcTask06(void *argument)
+{
+  /* USER CODE BEGIN RcTask06 */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END RcTask06 */
+}
+
+/* USER CODE BEGIN Header_InsTask07 */
+/**
+* @brief Function implementing the InsTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_InsTask07 */
+__weak void InsTask07(void *argument)
+{
+  /* USER CODE BEGIN InsTask07 */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END InsTask07 */
+}
+
+/* USER CODE BEGIN Header_CanTask08 */
+/**
+* @brief Function implementing the CanTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_CanTask08 */
+__weak void CanTask08(void *argument)
+{
+  /* USER CODE BEGIN CanTask08 */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END CanTask08 */
 }
 
 /* Private application code --------------------------------------------------*/

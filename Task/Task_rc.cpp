@@ -13,7 +13,9 @@ uint8_t rc_s1=0;
 uint8_t rc_s2=0;
 volatile uint8_t flag=0;
 }
-void RcTask(void *argument) {
+extern"C" void RcTask06(void *argument) {
+    HAL_UART_Receive_DMA(&huart3,rc_buf,18);
+    __HAL_UART_ENABLE_IT(&huart3,UART_IT_IDLE);
     for (;;) {
      osDelay(5);
         if (flag==1) {
@@ -27,8 +29,4 @@ void RcTask(void *argument) {
         }
     }
 }
-extern "C" void RcTaskInit(void) {
-    HAL_UART_Receive_DMA(&huart3,rc_buf,18);
-    __HAL_UART_ENABLE_IT(&huart3,UART_IT_IDLE);
-    osThreadNew(RcTask,NULL,NULL);
-}
+
